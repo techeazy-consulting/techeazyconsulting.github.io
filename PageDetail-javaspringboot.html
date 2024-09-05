@@ -112,11 +112,20 @@
         padding: 15px;
     }
 }
-*/
+*/root {
+    --primary: #73cee4;
+    --light: #F0FBFC;
+    --light: #f0e4de;
+    --dark: #181d38;
+}
+.btn {
+    background-color: white;
+    border: none;
+}
 
     button {
         border: none;
-        color: #f69050;
+        color: #efe8e5;
     }
 </style>
 
@@ -183,27 +192,156 @@
     </div>
     <!-- Header End -->
 
-
+   <!-- Header End -->
 <!-- Course Detail Start -->
 <div class="container-xxl py-2">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-9 wow fadeInUp">
-                <h2 class="text-center">What You Will Learn ?</h2>
-                
-                <div id="markdown-content" class="mx-auto">
-                    <!-- Markdown content will be rendered here -->
+            <!-- Course Detail Column -->
+            <div class="col-lg-7 mb-4">
+                <div class="course-detail-box">
+                    <!-- Course Header Section -->
+                    <div class="header">
+                        <h2>Course Name: Spring Boot Course</h2>
+                        <div class="course-details">
+                            <p><strong>Batch Schedule:</strong> 02-Jan-2021 to 07-Feb-2021</p>
+                            <p><strong>Timings:</strong> 09:00 AM to 12:30 PM</p>
+                        </div>
+                    </div>
+
+                    <!-- What You Will Learn Section -->
+                    <h2 class="text-center"></h2>
+                    <div id="markdown-content" class="mx-auto">
+                        <!-- Markdown content will be rendered here -->
+                    </div>
+
+                    <!-- Accordion Start -->
+                    <div class="accordion mt-5" id="courseAccordion">
+                        <!-- Pre-requisites for Spring Boot -->
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <i class="more-less fa fa-plus"></i>
+                                        Pre-requisites for Spring Boot
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-bs-parent="#courseAccordion">
+                                <div class="card-body">
+                                    You should have a basic understanding of Java, Spring framework, and Maven or Gradle.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Course Content -->
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <i class="more-less fa fa-plus"></i>
+                                        Course Content
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#courseAccordion">
+                                <div class="card-body">
+                                    <ul>
+                                        <li>Introduction to Spring Boot</li>
+                                        <li>Building RESTful Services</li>
+                                        <li>Spring Data JPA</li>
+                                        <li>Spring Security Basics</li>
+                                        <li>Deploying Spring Boot Applications</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Accordion End -->
+
+                    <!-- Accordion Panel for Syllabus Start -->
+                    <div class="card mt-4">
+                        <div class="card-header" id="headingSyllabus">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSyllabus" aria-expanded="false" aria-controls="collapseSyllabus">
+                                    <i class="more-less fa fa-plus"></i>
+                                    Syllabus
+                                </button>
+                            </h2>
+                        </div>
+
+                        <div id="collapseSyllabus" class="collapse" aria-labelledby="headingSyllabus" data-bs-parent="#courseAccordion">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="list_style">
+                                            <ul>
+                                                <li>
+                                                    <p><strong>Building the Foundations</strong></p>
+                                                    <ul>
+                                                        <li><p>Maven – Java Build Tool</p></li>
+                                                        <li><p>Spring Boot Introduction</p></li>
+                                                        <li><p>Creating Spring Boot Project using Maven</p></li>
+                                                        <li><p>Spring Framework Foundations</p></li>
+                                                        <li><p>Dependency Injection and Auto-wiring</p></li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <p><strong>Connecting to Database</strong></p>
+                                                    <ul>
+                                                        <li><p>ORM & JPA Introduction</p></li>
+                                                        <li><p>Spring Data Introduction</p></li>
+                                                        <li><p>JPA entities & relations in Spring Data</p></li>
+                                                        <li><p>CRUD operations on RDBMS using Spring Data</p></li>
+                                                        <li><p>Transaction management</p></li>
+                                                        <li><p>Querying data using Custom queries</p></li>
+                                                        <li><p>Calling stored procedures</p></li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <p><strong>Web-based applications</strong></p>
+                                                    <ul>
+                                                        <li><p>Spring MVC introduction</p></li>
+                                                        <li><p>Simple MVC application using Thymeleaf</p></li>
+                                                        <li><p>Integrating Spring MVC & Spring Data</p></li>
+                                                        <li><p>Deploying Spring Boot application</p></li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <p><strong>Spring Boot Micro-services</strong></p>
+                                                    <ul>
+                                                        <li><p>Micro-services concepts</p></li>
+                                                        <li><p>REST protocol</p></li>
+                                                        <li><p>REST services</p></li>
+                                                        <li><p>REST client</p></li>
+                                                        <li><p>Actuator endpoints</p></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <a href="   " target="_blank" class="btn read_more_btn">Click to Register</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Accordion Panel for Syllabus End -->
+
+                    <div class="buttons mt-4">
+                        <a href="#" class="text-decoration-none text-white btn btn-primary p-3 w-100 mb-2">ENROLL NOW</a>
+                    </div>
                 </div>
-                
-                <div class="buttons mt-4">
-                    <a href="#" class="text-decoration-none text-white btn btn-primary p-3 w-100 mb-2">ENROLL NOW</a>
-                </div>
+            </div>
+
+            <!-- Image Column -->
+            <div class="col-lg-5">
+                <img src="path/to/your-image.jpg" alt="Spring Boot Course" class="img-fluid">
             </div>
         </div>
     </div>
 </div>
 <!-- Course Detail End -->
-
 
 
  <!-- Footer Start -->
