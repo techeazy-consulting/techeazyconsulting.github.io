@@ -1,1 +1,0 @@
-# techeazyconsulting.github.io
