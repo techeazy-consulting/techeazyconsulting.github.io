@@ -1,0 +1,32 @@
+.apply-btn {
+  padding: 10px 20px;
+  background-color: #485cd1;
+  color: white;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  animation: blink 1.5s infinite;
+  transition: transform 0.3s ease;
+}
+
+.apply-btn:hover {
+  transform: scale(1.1);
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .apply-btn {
+    padding: 7px 14px;
+    font-size: 12px;
+  }
+}
