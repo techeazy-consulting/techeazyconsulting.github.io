@@ -23,9 +23,18 @@
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+
+  
 
   
 </head>
@@ -62,18 +71,91 @@
 
   <main class="main">
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero section dark-background">
+ <!-- Hero Section -->
+<section id="hero" class="hero section dark-background">
+  <div class="container">
+    <!-- Carousel -->
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+      <!-- Indicators/Dots -->
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
 
-      <div class="container">
-        <h2 data-aos="fade-up" data-aos-delay="100">Bridging Gap Between <br>Academia and Industry</h2>
-        <p data-aos="fade-up" data-aos-delay="200"></p>
-        <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
-          <a href="courses.html" class="btn-get-started">Get Started</a>
+      <!-- Slides -->
+      <div class="carousel-inner">
+        <!-- Slide 1 -->
+        <div class="carousel-item active">
+          <div class="row">
+            <!-- Left Side (Content) -->
+            <div class="col-lg-6">
+              <h2 data-aos="fade-up" data-aos-delay="100">Bridging Gap Between <br>Academia and Industry</h2>
+              <p data-aos="fade-up" data-aos-delay="200">Empowering Students with Real-World Skills</p>
+              <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
+                <a href="courses.html" class="btn-get-started">Get Started</a>
+              </div>
+            </div>
+            <!-- Right Side (Image) -->
+            <div class="col-lg-6">
+              <img src="images/tech.jpg" class="img-fluid" alt="Hero Image" data-aos="fade-up" data-aos-delay="200" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="carousel-item">
+          <div class="row">
+            <!-- Left Side (Content) -->
+            <div class="col-lg-6">
+              <h2 data-aos="fade-up" data-aos-delay="100">Learn with Experts</h2>
+              <p data-aos="fade-up" data-aos-delay="200">Gain Practical Knowledge from Industry Leaders</p>
+              <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
+                <a href="about.html" class="btn-get-started">Learn More</a>
+              </div>
+            </div>
+            <!-- Right Side (Image) -->
+            <div class="col-lg-6">
+              <img src="images/learn-experts.jpg" class="img-fluid" alt="Learn with Experts" data-aos="fade-up" data-aos-delay="200" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="carousel-item">
+          <div class="row">
+            <!-- Left Side (Content) -->
+            <div class="col-lg-6">
+              <h2 data-aos="fade-up" data-aos-delay="100">Upskill with Latest Technologies</h2>
+              <p data-aos="fade-up" data-aos-delay="200">Stay Ahead in Your Career Journey</p>
+              <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
+                <a href="contact.html" class="btn-get-started">Contact Us</a>
+              </div>
+            </div>
+            <!-- Right Side (Image) -->
+            <div class="col-lg-6">
+              <img src="images/upskill-tech.jpg" class="img-fluid" alt="Upskill with Latest Technologies" data-aos="fade-up" data-aos-delay="200" />
+            </div>
+          </div>
         </div>
       </div>
 
-    </section><!-- /Hero Section -->
+      <!-- Controls -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+</section><!-- /Hero Section -->
+
+
+
+    
 
 
     <section id="about" class="about section">
@@ -580,6 +662,10 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script>
+    AOS.init();
+  </script>
+  
 
 </body>
 
