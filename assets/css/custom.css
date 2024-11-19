@@ -17,6 +17,26 @@
   transform: scale(1.1);
 }
 
+
+
+
+
+.original-price {
+  text-decoration: line-through;
+  color: #888; /* Gray color for the original price */
+  font-size: 0.9rem; /* Slightly smaller font size */
+  margin-right: 10px; /* Space between the prices */
+}
+
+.discounted-price {
+  color: #e63946; /* Red color for the discounted price */
+  font-weight: bold;
+  font-size: 1rem; /* Slightly larger font size for emphasis */
+}
+
+
+
+
 @keyframes blink {
   0% { opacity: 1; }
   50% { opacity: 0.5; }
@@ -30,3 +50,17 @@
     font-size: 12px;
   }
 }
+.free-batch-label {
+  background-color: #28a745; /* Green background */
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.free-batch-text {
+  color: #fff; /* White text */
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+}
+
