@@ -923,6 +923,50 @@ section,
   border: 2px solid var(--accent-color);
 }
 
+.hero .carousel-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full height of the viewport */
+}
+
+
+
+.hero .carousel-inner {
+  width: 100%;
+}
+
+.hero .carousel-item .row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.hero .carousel-item .col-lg-6 {
+  padding: 15px;
+}
+
+.hero .carousel-item img {
+  width: 50%;
+  height: auto;
+  object-fit: cover; /* Ensures the image maintains its aspect ratio */
+}
+
+.btn-get-started {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #485cd1;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.btn-get-started:hover {
+  background-color: #2c3e50;
+}
+
+
 @media (max-width: 768px) {
   .hero h2 {
     font-size: 32px;
@@ -1389,7 +1433,7 @@ section,
 
   .tabs .nav-link.active {
     color: var(--accent-color);
-    background: var(--accent-color);
+    /* background: var(--accent-color); */
   }
 }
 
@@ -1546,6 +1590,19 @@ section,
   overflow: hidden;
 }
 
+.discount-label {
+  background-color: #ff4d4d; /* Red background for the discount label */
+  color: white; /* White text color */
+  padding: 3px 6px; /* Smaller padding */
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 0.8rem; /* Smaller font size */
+  margin-top: 5px; /* Space between the price and label */
+  display: block; /* Make the label block-level to move it below the price */
+}
+
+
+
 .pricing .pricing-item h3 {
   margin: -20px -20px 20px -20px;
   padding: 20px 15px;
@@ -1638,6 +1695,21 @@ section,
   font-size: 14px;
   padding: 1px 0 3px 0;
 }
+
+
+.original-price {
+  text-decoration: line-through;
+  color: #888; /* Gray color for the original price */
+  font-size: 0.9rem; /* Slightly smaller font size */
+  margin-right: 10px; /* Space between the prices */
+}
+
+.discounted-price {
+  color: #e63946; /* Red color for the discounted price */
+  font-weight: bold;
+  font-size: 1rem; /* Slightly larger font size for emphasis */
+}
+
 
 /*--------------------------------------------------------------
 # Contact Section
