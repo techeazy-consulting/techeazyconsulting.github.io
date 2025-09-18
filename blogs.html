@@ -26,7 +26,11 @@
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://techeeazy.com/blogs" />
-    <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/dniqqtnps/image/upload/v1758097111/favicon_dewgwa.ico">
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://res.cloudinary.com/dniqqtnps/image/upload/v1758097111/favicon_dewgwa.ico"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
@@ -34,26 +38,11 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- Header -->
-    <header class="header">
-      <div class="nav-container">
-        <div class="logo">TechEazy Consulting</div>
-        <nav>
-          <ul class="nav-menu">
-            <li class="nav-item"><a href="/">Home</a></li>
-            <li class="nav-item"><a href="/services">Services</a></li>
-            <li class="nav-item"><a href="/certification">Certification</a></li>
-            <li class="nav-item"><a href="/internship">Internship</a></li>
-            <li class="nav-item"><a href="/testimonial">Testimonials</a></li>
-            <li class="nav-item active"><a href="/blogs">Blogs</a></li>
-          </ul>
-          <button class="mobile-menu-toggle">☰</button>
-        </nav>
-      </div>
-    </header>
+    <!-- Header (included) -->
+    <div data-include="navbar.html"></div>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -61,7 +50,7 @@
       <div class="page active" id="blog">
         <div class="container">
           <h1 class="section-title">Latest Updates & Insights</h1>
-          
+
           <!-- Search Bar -->
           <!-- <div class="search-container" style="margin-bottom: 2rem; text-align: center;">
             <input 
@@ -73,15 +62,50 @@
           </div> -->
 
           <!-- Loading Spinner -->
-          <div id="loadingSpinner" style="text-align: center; margin: 2rem 0;">
-            <div style="display: inline-block; width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #ff6b35; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-            <p style="margin-top: 1rem; color: #666;">Loading blogs...</p>
+          <div id="loadingSpinner" style="text-align: center; margin: 2rem 0">
+            <div
+              style="
+                display: inline-block;
+                width: 40px;
+                height: 40px;
+                border: 4px solid #f3f3f3;
+                border-top: 4px solid #ff6b35;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+              "
+            ></div>
+            <p style="margin-top: 1rem; color: #666">Loading blogs...</p>
           </div>
 
           <!-- Error Message -->
-          <div id="errorMessage" style="display: none; text-align: center; margin: 2rem 0; padding: 1rem; background: #ffe6e6; border: 1px solid #ff6b6b; border-radius: 8px; color: #d63031;">
+          <div
+            id="errorMessage"
+            style="
+              display: none;
+              text-align: center;
+              margin: 2rem 0;
+              padding: 1rem;
+              background: #ffe6e6;
+              border: 1px solid #ff6b6b;
+              border-radius: 8px;
+              color: #d63031;
+            "
+          >
             <p>Failed to load blogs. Please try again later.</p>
-            <button onclick="fetchBlogs()" style="margin-top: 1rem; padding: 8px 16px; background: #ff6b35; color: white; border: none; border-radius: 4px; cursor: pointer;">Retry</button>
+            <button
+              onclick="fetchBlogs()"
+              style="
+                margin-top: 1rem;
+                padding: 8px 16px;
+                background: #ff6b35;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+              "
+            >
+              Retry
+            </button>
           </div>
 
           <!-- API Notice -->
@@ -95,18 +119,20 @@
           </div>
 
           <!-- Load More Button -->
-          <div id="loadMoreContainer" style="text-align: center; margin: 2rem 0; display: none;">
-            <button 
-              id="loadMoreBtn" 
-              onclick="loadMoreBlogs()" 
-              style="padding: 12px 24px; background: #ff6b35; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: 600;"
+          <div id="loadMoreContainer" class="blog-btn container">
+            <!-- style="text-align: center; margin: 2rem 0; display: none" -->
+            <button
+              id="loadMoreBtn"
+              onclick="loadMoreBlogs()"
+              class="btn btn-primary"
             >
+              <!-- style="padding: 12px 24px; background: #ff6b35; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: 600;" -->
               Load More Blogs
             </button>
           </div>
         </div>
 
-        <div class="blog-btn container">
+        <div id="exploreMoreContainer" class="blog-btn container" style="display: none;">
           <a
             class="btn btn-primary"
             href="https://blog.techeazyconsulting.com/"
@@ -118,64 +144,8 @@
       </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-content">
-          <div class="footer-section">
-            <h4>TechEazy Consulting</h4>
-            <p>
-              Bridging the gap between academics and industry through practical
-              AWS cloud training and internships.
-            </p>
-            <p>
-              <strong>Special Offer:</strong> ₹2,600/month (48% off original
-              price)
-            </p>
-          </div>
-
-          <div class="footer-section">
-            <h4>Training Programs</h4>
-            <ul style="list-style: none; padding: 0">
-              <li><a href="/certification">AWS CloudOps Certification</a></li>
-              <li><a href="/certification">AWS Data Engineer Certification</a></li>
-              <li><a href="/certification">AWS Solution Architect</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-section">
-            <h4>Services</h4>
-            <ul style="list-style: none; padding: 0">
-              <li><a href="/services">AWS Migration</a></li>
-              <li><a href="/services">DevOps Consulting</a></li>
-              <li><a href="/services">Cloud Consulting</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-section">
-            <h4>Contact Information</h4>
-            <p>
-              📍 <strong>Address:</strong><br />
-              TechEazy Consulting<br />
-              Magarpatta City,<br />
-              Pune, Maharashtra 411028<br />
-            </p>
-            <p>trainings@techeazyconsulting.com</p>
-            <p>
-              <i class="fa-brands fa-whatsapp" style="color: #24ff5b"></i>
-              +91-9975798356
-            </p>
-          </div>
-        </div>
-
-        <div class="footer-bottom">
-          <p>
-            &copy; 2025 TechEazy Consulting. All rights reserved. | Affordable
-            AWS Training & Internship Programs for Students
-          </p>
-        </div>
-      </div>
-    </footer>
+    <!-- Footer (included) -->
+    <div data-include="footer.html"></div>
 
     <script src="config.js"></script>
     <script src="script.js"></script>

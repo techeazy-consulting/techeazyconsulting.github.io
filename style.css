@@ -55,30 +55,56 @@ body {
   gap: 0.5rem;
 }
 
-.nav-menu li {
+/* .nav-menu li {
   cursor: pointer;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   transition: background-color 0.3s;
+} */
+.nav-menu a {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  color: #fff;
 }
 
-.nav-menu li a {
+/* .nav-menu li a {
     text-decoration: none;
-    color: #fff;
+    color: #fff; 
+}*/
+
+/* .nav-menu li:hover {
+  background-color: rgba(255, 107, 53, 0.2);
+} */
+.nav-menu a:hover {
+  background-color: rgba(255, 107, 53, 0.2);
+  background-color: #eaeaea;
+  color: #333;
 }
 
-.nav-menu li:hover {
+/* .nav-menu li.active {
   background-color: rgba(255, 107, 53, 0.2);
-}
+  background-color: #eaeaea;
+} */
+/* .nav-menu a.active {
+  background-color: rgba(255, 107, 53, 0.2);
+  background-color: #eaeaea;
+  color: #333;
+  font-weight: bold;
+} */
 
-.nav-menu li.active {
-  background-color: rgba(255, 107, 53, 0.2);
+.nav-menu li.active a {
+  color: #333;
   background-color: #eaeaea;
 }
 
-.nav-menu li.active a{
+/* Active state when anchors are direct children (current navbar) */
+/* .nav-menu .nav-item.active {
   color: #333;
-}
+  background-color: #eaeaea;
+} */
 
 .mobile-menu-toggle {
   display: none;
@@ -222,12 +248,7 @@ body {
 
 /* Hero Section */
 .hero {
-  background: linear-gradient(
-    135deg,
-    #2c3e50 0%,
-    #3498db 50%,
-    #ff6b35 100%
-  );
+  background: linear-gradient(135deg, #2c3e50 0%, #3498db 50%, #ff6b35 100%);
   color: white;
   padding: 4rem 0;
   text-align: center;
@@ -478,14 +499,14 @@ body {
   margin-bottom: 2rem;
 }
 
-.footer-section ul li a{
+.footer-section ul li a {
   cursor: pointer;
   text-decoration: none;
   color: #fff;
 }
 
 .footer-section ul li a:hover {
-    color: #d8d8d8;
+  color: #d8d8d8;
 }
 
 .footer-section h4 {
@@ -514,8 +535,12 @@ body {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Responsive Design */

@@ -1,72 +1,135 @@
-// Navigation functionality
-function showPage(pageId) {
-  // Hide all pages
-  const pages = document.querySelectorAll(".page");
-  pages.forEach((page) => page.classList.remove("active"));
+// Navigation functionality - removed showPage function as it's not needed for multi-page navigation
 
-  // Show selected page
-  document.getElementById(pageId).classList.add("active");
+function initNavHandlers() {
+  const toggle = document.querySelector(".mobile-menu-toggle");
+  if (toggle) {
+    // Remove existing event listeners to prevent duplicates
+    toggle.removeEventListener("click", toggleClickHandler);
+    toggle.addEventListener("click", toggleClickHandler);
+  }
 
-  // Update navigation
-  const navItems = document.querySelectorAll(".nav-item");
-  navItems.forEach((item) => item.classList.remove("active"));
-  document
-    .querySelector(`[data-page="${pageId}"]`)
-    .classList.add("active");
+  // Set active nav item based on URL path
+  const path = location.pathname.replace(/\/index\.html?$/, "/");
+  document.querySelectorAll('.nav-menu .nav-item').forEach((a) => {
+    try {
+      const href = a.getAttribute('href') || '';
+      // Exact match for root, startsWith for section pages
+      const isActive = (href === '/' && path === '/') || (href !== '/' && path.startsWith(href));
+      a.classList.toggle('active', !!isActive);
+    } catch (_) {}
+  });
 
+  // Remove existing event listeners to prevent duplicates
+  document.querySelectorAll(".nav-item").forEach((item) => {
+    item.removeEventListener("click", navItemClickHandler);
+    item.addEventListener("click", navItemClickHandler);
+  });
+}
+
+// Separate handler functions to prevent duplicate event listeners
+function toggleClickHandler() {
+  const menu = document.querySelector(".nav-menu");
+  if (menu) menu.classList.toggle("active");
+}
+
+function navItemClickHandler(event) {
   // Close mobile menu if open
   document.querySelector(".nav-menu").classList.remove("active");
+  // Let the default link behavior handle navigation
 }
-
-// Mobile menu toggle
-document
-  .querySelector(".mobile-menu-toggle")
-  .addEventListener("click", function () {
-    document.querySelector(".nav-menu").classList.toggle("active");
-  });
 
 // Navigation click handlers
-document.querySelectorAll(".nav-item").forEach((item) => {
-  item.addEventListener("click", function () {
-    const page = this.getAttribute("data-page");
-    showPage(page);
-  });
-});
 
 // Carousel functionality
-let currentSlide = 0;
-const slides = document.querySelectorAll(".carousel-slide");
-const dots = document.querySelectorAll(".carousel-dot");
+const carouselState = {
+  slides: [],
+  dots: [],
+  currentSlide: 0,
+  intervalId: null,
+};
 
 function showSlide(index) {
-  // Hide all slides
-  slides.forEach((slide) => slide.classList.remove("active"));
-  dots.forEach((dot) => dot.classList.remove("active"));
-
-  // Show selected slide
-  slides[index].classList.add("active");
-  dots[index].classList.add("active");
-
-  currentSlide = index;
+  if (!carouselState.slides.length) return;
+  const total = carouselState.slides.length;
+  const next = ((index % total) + total) % total;
+  // Hide all
+  carouselState.slides.forEach((s) => s.classList.remove("active"));
+  carouselState.dots.forEach((d) => d.classList.remove("active"));
+  // Show selected
+  carouselState.slides[next].classList.add("active");
+  if (carouselState.dots[next]) carouselState.dots[next].classList.add("active");
+  carouselState.currentSlide = next;
 }
 
-// Auto-rotate carousel
-setInterval(() => {
-  currentSlide = (currentSlide + 1) % slides.length;
-  showSlide(currentSlide);
-}, 5000);
+function initCarousel() {
+  carouselState.slides = Array.from(document.querySelectorAll(".carousel-slide"));
+  carouselState.dots = Array.from(document.querySelectorAll(".carousel-dot"));
+  if (!carouselState.slides.length) {
+    // No carousel on this page
+    if (carouselState.intervalId) {
+      clearInterval(carouselState.intervalId);
+      carouselState.intervalId = null;
+    }
+    return;
+  }
+
+  // Ensure first slide is active
+  showSlide(0);
+
+  // Wire up dot clicks (works even if inline onclick exists)
+  carouselState.dots.forEach((dot, i) => {
+    dot.addEventListener("click", () => showSlide(i));
+  });
+
+  // (Re)start auto-rotate
+  if (carouselState.intervalId) clearInterval(carouselState.intervalId);
+  carouselState.intervalId = setInterval(() => {
+    showSlide(carouselState.currentSlide + 1);
+  }, 5000);
+}
 
 // Smooth scrolling for CTA button
 document.addEventListener("DOMContentLoaded", function () {
+  // HTML partial include loader
+  const includeTargets = document.querySelectorAll('[data-include]');
+  if (includeTargets.length > 0) {
+    const loads = Array.from(includeTargets).map(async (el) => {
+      const src = el.getAttribute('data-include');
+      try {
+        const res = await fetch(src, { cache: 'no-cache' });
+        const html = await res.text();
+        el.outerHTML = html;
+      } catch (e) {
+        console.error('Failed to include', src, e);
+      }
+    });
+
+    Promise.all(loads).then(() => {
+      // re-init features that rely on included markup
+      initNavHandlers();
+      initScrollObserver();
+      initCarousel();
+    });
+  } else {
+    // If no includes, still init
+    initNavHandlers();
+    initScrollObserver();
+    initCarousel();
+  }
+
   // Add scroll-to-top functionality
-  window.addEventListener("scroll", function () {
-    const header = document.querySelector(".header");
-    if (window.scrollY > 100) {
-      header.style.backgroundColor = "rgba(44, 62, 80, 0.95)";
-    } else {
-      header.style.backgroundColor = "";
-    }
-  });
+  function initHeaderScroll() {
+    window.addEventListener("scroll", function () {
+      const header = document.querySelector(".header");
+      if (!header) return;
+      if (window.scrollY > 100) {
+        header.style.backgroundColor = "rgba(44, 62, 80, 0.95)";
+      } else {
+        header.style.backgroundColor = "";
+      }
+    });
+  }
+  initHeaderScroll();
 
   // Add animation to cards on scroll
   const observerOptions = {
@@ -74,17 +137,19 @@ document.addEventListener("DOMContentLoaded", function () {
     rootMargin: "0px 0px -50px 0px",
   };
 
-  const observer = new IntersectionObserver(function (entries) {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.style.animation = "fadeInUp 0.6s ease forwards";
-      }
-    });
-  }, observerOptions);
+  function initScrollObserver() {
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = "fadeInUp 0.6s ease forwards";
+        }
+      });
+    }, observerOptions);
 
-  document.querySelectorAll(".card").forEach((card) => {
-    observer.observe(card);
-  });
+    document.querySelectorAll(".card").forEach((card) => {
+      observer.observe(card);
+    });
+  }
 });
 
 // Form validation and interaction
@@ -241,6 +306,7 @@ class BlogManager {
 
         this.renderBlogs();
         this.updateLoadMoreButton();
+        this.updateExploreMoreButton();
       } else {
         throw new Error('Invalid response structure');
       }
@@ -301,6 +367,7 @@ class BlogManager {
     this.hasNextPage = false;
     this.renderBlogs();
     this.updateLoadMoreButton();
+    this.updateExploreMoreButton();
     this.loading = false;
     this.showLoading(false);
   }
@@ -325,6 +392,9 @@ class BlogManager {
           <p>No blogs found${this.searchTerm ? ' matching your search.' : '.'}</p>
         </div>
       `;
+      // Hide both buttons when no blogs are found
+      this.updateLoadMoreButton();
+      this.updateExploreMoreButton();
       return;
     }
 
@@ -348,12 +418,24 @@ class BlogManager {
         >Read More →</a>
       </article>
     `).join('');
+    
+    // Update explore more button after rendering
+    this.updateExploreMoreButton();
   }
 
   updateLoadMoreButton() {
     const loadMoreContainer = document.getElementById('loadMoreContainer');
     if (loadMoreContainer) {
       loadMoreContainer.style.display = this.hasNextPage ? 'block' : 'none';
+    }
+  }
+
+  updateExploreMoreButton() {
+    const exploreMoreContainer = document.getElementById('exploreMoreContainer');
+    if (exploreMoreContainer) {
+      // Show "Explore More" button only if we have blogs loaded and no more pages to load
+      const shouldShow = this.blogs.length > 0 && !this.hasNextPage && !this.loading;
+      exploreMoreContainer.style.display = shouldShow ? 'block' : 'none';
     }
   }
 
