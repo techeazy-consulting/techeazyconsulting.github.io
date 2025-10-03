@@ -1,5 +1,7 @@
 // Navigation functionality - removed showPage function as it's not needed for multi-page navigation
 
+import { DOMAIN } from "./js/config.js";
+
 function initNavHandlers() {
   const toggle = document.querySelector(".mobile-menu-toggle");
   if (toggle) {
@@ -181,6 +183,87 @@ document.querySelectorAll(".cta-button, .card").forEach((element) => {
     );
   });
 });
+
+// Popup form
+// Form submission logic for studentName, email, mobile, classId
+function loadPopup() {
+  fetch("popup.html")
+    .then(res => res.text())
+    .then(html => {
+      document.body.insertAdjacentHTML("beforeend", html);
+
+      const popup = document.getElementById("global-popup");
+      const closeBtn = document.querySelector(".popup-close");
+
+      // Close popup
+      closeBtn.addEventListener("click", () => popup.style.display = "none");
+      popup.addEventListener("click", (e) => { if (e.target === popup) popup.style.display = "none"; });
+
+      const form = document.getElementById("interest-form");
+      const status = document.getElementById("form-status");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const data = {
+          studentName: form.studentName.value.trim(),
+          email: form.email.value.trim(),
+          mobile: form.mobile.value.trim(),
+          classId: form.classId.value
+        };
+
+        // Basic client validation
+        if (!data.studentName || !data.email || !data.mobile || !data.classId) {
+          status.textContent = "❌ Please fill all required fields.";
+          status.style.color = "red";
+          return;
+        }
+
+        status.textContent = "Submitting...";
+        status.style.color = "gray";
+
+        try {
+          // Replace URL with your backend endpoint
+          const res = await fetch(`${DOMAIN}/public/dms/api/expressInterest`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+          });
+
+          if (res.ok) {
+            status.textContent = "✅ Form submitted successfully!";
+            status.style.color = "green";
+            form.reset();
+          } else {
+            status.textContent = "❌ Submission failed. Try again.";
+            status.style.color = "red";
+          }
+        } catch (err) {
+          status.textContent = "⚠️ Network error.";
+          status.style.color = "red";
+        }
+      });
+    });
+}
+
+// Show popup globally
+function showPopup() {
+  const popup = document.getElementById("global-popup");
+  if (popup) {
+    popup.style.display = "flex";
+  } else {
+    loadPopup();
+    setTimeout(() => {
+      const popupLoaded = document.getElementById("global-popup");
+      if (popupLoaded) popupLoaded.style.display = "flex";
+    }, 200);
+  }
+}
+
+window.showPopup = showPopup;
+
+
+
 
 // Blog fetching functionality
 class BlogManager {

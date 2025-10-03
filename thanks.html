@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thanks Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div data-include="navbar.html"></div>
+
+  <main class="main-content thanks">
+    <div class="container">
+      <h1 class="gradient-text">Thank You!</h1>
+      <p id="message"></p>
+
+      <div id="interestedContent" style="display: none; margin-top: 20px">
+        <p>Join our community and stay updated:</p>
+        <a href="https://chat.whatsapp.com/IJIrgxxU5jE1fxj543zLPb" target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-whatsapp"></i> Join WhatsApp Group
+        </a>
+        <br />
+        <a href="/certification" class="courseLink">Explore our other Courses ↗️</a>
+      </div>
+    </div>
+  </main>
+  <div data-include="footer.html"></div>
+
+  <script>
+    // Get query parameter from URL
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    const status = getQueryParam("status") || "unknown";
+    const messageElement = document.getElementById("message");
+    const interestedContent = document.getElementById("interestedContent");
+
+    switch (status) {
+      case "interested":
+        messageElement.textContent =
+          "Your response has been recorded! We will get back to you shortly.";
+        interestedContent.style.display = "block";
+        break;
+      case "notinterested":
+        messageElement.textContent =
+          "We understand. If you change your mind, feel free to reach out.";
+        break;
+      case "unsubscribed":
+        messageElement.textContent =
+          "You have successfully unsubscribed. We're sorry to see you go.";
+        break;
+      case "error":
+        messageElement.textContent =
+          "Thanks for your interest, but registration for this batch are closed. Drop a message on WhatsApp number for specific query.";
+        break;
+      default:
+        messageElement.textContent = "Thank you for visiting!";
+        break;
+    }
+  </script>
+  <script type="module" src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Submission Form</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/your-fontawesome-key.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div data-include="navbar.html"></div>
+
+  <main class="main-content students">
+    <div class="container mt-5">
+      <div class="row justify-content-center mt-5">
+        <div class="col-md-6 col-lg-5">
+          <div id="invalid-access" class="alert alert-danger mb-4 d-none">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            Invalid access link. Please use the link provided in your email.
+          </div>
+
+          <div id="form-card" class="form-card d-none">
+            <div class="form-header">
+              <div class="form-icon">
+                <i class="fas fa-user-graduate"></i>
+              </div>
+              <h3 class="form-title">Student Submission Form</h3>
+              <div id="form-subtitle" class="form-subtitle"></div>
+            </div>
+
+            <div class="form-body">
+              <form id="studentForm">
+                <div class="form-group mb-3">
+                  <label class="form-label"><i class="fas fa-link"></i>
+                    <span id="responseLabel"></span> *</label>
+                  <input type="url" id="studentResponse" class="form-input" placeholder="" />
+                  <div id="responseError" class="error-message d-none"></div>
+                  <div id="responseHelp" class="help-text"></div>
+                </div>
+
+                <div class="form-group mb-3">
+                  <label class="form-label"><i class="fas fa-comment-alt"></i> Comment</label>
+                  <textarea id="comment" class="form-input form-textarea" rows="4" placeholder=""></textarea>
+                  <div class="help-text">
+                    Share your thoughts, challenges, or additional details
+                    (optional).
+                  </div>
+                </div>
+
+                <button id="submitBtn" type="submit" class="submit-button">
+                  <i class="fas fa-paper-plane"></i> Submit Assignment
+                </button>
+              </form>
+
+              <div id="resultBox" class="result-message d-none">
+                <div class="result-content d-flex align-items-center">
+                  <i id="resultIcon" class="result-icon"></i>
+                  <span id="resultText"></span>
+                </div>
+                <button type="button" class="result-close"
+                  onclick="document.getElementById('resultBox').classList.add('d-none')">
+                  ×
+                </button>
+              </div>
+            </div>
+
+            <div class="form-footer mt-3">
+              <i class="fas fa-info-circle"></i> Make sure to submit before
+              the deadline. Contact your instructor if you face any issues.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div data-include="footer.html"></div>
+
+  <script type="module" src="script.js"></script>
+  <script type="module" src="js/student.js"></script>
+</body>
+
+</html>
