@@ -185,7 +185,7 @@ document.querySelectorAll(".cta-button, .card").forEach((element) => {
 });
 
 // Popup form
-// Form submission logic for studentName, email, mobile, classId
+// Form submission logic for studentName, email, mobile, interestType
 function loadPopup() {
   fetch("popup.html")
     .then(res => res.text())
@@ -209,11 +209,11 @@ function loadPopup() {
           studentName: form.studentName.value.trim(),
           email: form.email.value.trim(),
           mobile: form.mobile.value.trim(),
-          classId: form.classId.value
+          interestType: form.interestType.value
         };
 
         // Basic client validation
-        if (!data.studentName || !data.email || !data.mobile || !data.classId) {
+        if (!data.studentName || !data.email || !data.mobile || !data.interestType) {
           status.textContent = "❌ Please fill all required fields.";
           status.style.color = "red";
           return;
