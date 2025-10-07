@@ -14,3 +14,9 @@ const CONFIG = {
 };
 
 export const DOMAIN = CONFIG[ENV].DOMAIN;
+
+
+export const WEBSITE_CONSTANTS = {
+     EXPRESS_INTEREST_SOURCE: "V0VCU0lURQ=="
+}
+

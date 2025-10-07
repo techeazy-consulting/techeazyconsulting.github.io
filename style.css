@@ -467,6 +467,7 @@ body {
   background: #fff;
   border-color: #1f6feb;
   color: #1f6feb;
+  cursor: pointer; 
 }
 
 /* Blogs */

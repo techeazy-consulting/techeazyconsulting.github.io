@@ -1,6 +1,6 @@
 // Navigation functionality - removed showPage function as it's not needed for multi-page navigation
 
-import { DOMAIN } from "./js/config.js";
+import { WEBSITE_CONSTANTS , DOMAIN } from "./js/config.js";
 
 function initNavHandlers() {
   const toggle = document.querySelector(".mobile-menu-toggle");
@@ -185,7 +185,7 @@ document.querySelectorAll(".cta-button, .card").forEach((element) => {
 });
 
 // Popup form
-// Form submission logic for studentName, email, mobile, interestType
+// Form submission logic for studentName, email, mobile, interestType, courseType
 function loadPopup() {
   fetch("popup.html")
     .then(res => res.text())
@@ -205,16 +205,22 @@ function loadPopup() {
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
+        // Get the source parameter from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const applySource = urlParams.get('src') || WEBSITE_CONSTANTS.EXPRESS_INTEREST_SOURCE;
+
         const data = {
           studentName: form.studentName.value.trim(),
           email: form.email.value.trim(),
           mobile: form.mobile.value.trim(),
-          interestType: form.interestType.value
+          interestType: form.interestType.value,
+          courseType: form.courseType.value,
+          applySource: applySource  
         };
 
         // Basic client validation
-        if (!data.studentName || !data.email || !data.mobile || !data.interestType) {
-          status.textContent = "❌ Please fill all required fields.";
+        if (!data.studentName || !data.email || !data.mobile || !data.interestType || !data.courseType) {
+          status.textContent = "Please fill all required fields.";
           status.style.color = "red";
           return;
         }
@@ -231,15 +237,15 @@ function loadPopup() {
           });
 
           if (res.ok) {
-            status.textContent = "✅ Form submitted successfully!";
+            status.textContent = "Form submitted successfully!";
             status.style.color = "green";
             form.reset();
           } else {
-            status.textContent = "❌ Submission failed. Try again.";
+            status.textContent = "Submission failed. Try again.";
             status.style.color = "red";
           }
         } catch (err) {
-          status.textContent = "⚠️ Network error.";
+          status.textContent = "Network error.";
           status.style.color = "red";
         }
       });
@@ -260,9 +266,21 @@ function showPopup() {
   }
 }
 
+// Check if URL contains 'src' parameter and auto-show popup
+function checkAndShowPopupFromURL() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const srcParam = urlParams.get('src');
+  
+  if (srcParam) {
+    // Show popup automatically if src parameter exists
+    showPopup();
+  }
+}
+
 window.showPopup = showPopup;
 
-
+// Auto-show popup on page load if src parameter exists
+window.addEventListener('DOMContentLoaded', checkAndShowPopupFromURL);
 
 
 // Blog fetching functionality
