@@ -18,6 +18,12 @@ const resultBox = document.getElementById("resultBox");
 const resultText = document.getElementById("resultText");
 const resultIcon = document.getElementById("resultIcon");
 const submitBtn = document.getElementById("submitBtn");
+const urlCharCount = document.getElementById("urlCharCount");
+const commentCharCount = document.getElementById("commentCharCount");
+
+// Character limits
+const URL_MAX_LENGTH = 1000;
+const COMMENT_MAX_LENGTH = 5000;
 
 // Initialize page
 async function initializePage() {
@@ -39,6 +45,7 @@ async function initializePage() {
     // Token is valid, show the form
     formCard.classList.remove("d-none");
     setupFormLabels();
+    setupCharacterCounters();
   } catch (error) {
     console.error("Token validation error:", error);
     showTokenExpiredMessage();
@@ -86,6 +93,37 @@ function setupFormLabels() {
   }
 }
 
+// Setup character counters
+function setupCharacterCounters() {
+  // URL field character counter
+  studentResponse.addEventListener("input", () => {
+    const length = studentResponse.value.length;
+    urlCharCount.textContent = `${length}/${URL_MAX_LENGTH}`;
+    
+    if (length > URL_MAX_LENGTH) {
+      urlCharCount.classList.add("text-danger");
+      studentResponse.classList.add("is-invalid");
+    } else {
+      urlCharCount.classList.remove("text-danger");
+      studentResponse.classList.remove("is-invalid");
+    }
+  });
+
+  // Comment field character counter
+  commentField.addEventListener("input", () => {
+    const length = commentField.value.length;
+    commentCharCount.textContent = `${length}/${COMMENT_MAX_LENGTH}`;
+    
+    if (length > COMMENT_MAX_LENGTH) {
+      commentCharCount.classList.add("text-danger");
+      commentField.classList.add("is-invalid");
+    } else {
+      commentCharCount.classList.remove("text-danger");
+      commentField.classList.remove("is-invalid");
+    }
+  });
+}
+
 // Simple URL validation
 function validateUrl(url) {
   const pattern = /^(https?:\/\/)[\w.-]+(\.[\w\.-]+)+[/#?]?.*$/;
@@ -97,8 +135,32 @@ document.getElementById("studentForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   responseError.classList.add("d-none");
 
-  if (!studentResponse.value.trim() || !validateUrl(studentResponse.value.trim())) {
+  // Validate URL field
+  const urlValue = studentResponse.value.trim();
+  
+  if (!urlValue) {
+    responseError.textContent = "Please enter a URL";
+    responseError.classList.remove("d-none");
+    return;
+  }
+  
+  if (urlValue.length > URL_MAX_LENGTH) {
+    responseError.textContent = `URL must not exceed ${URL_MAX_LENGTH} characters`;
+    responseError.classList.remove("d-none");
+    return;
+  }
+  
+  if (!validateUrl(urlValue)) {
     responseError.textContent = "Please enter a valid URL";
+    responseError.classList.remove("d-none");
+    return;
+  }
+
+  // Validate comment field
+  const commentValue = commentField.value.trim();
+  
+  if (commentValue.length > COMMENT_MAX_LENGTH) {
+    responseError.textContent = `Comment must not exceed ${COMMENT_MAX_LENGTH} characters`;
     responseError.classList.remove("d-none");
     return;
   }
@@ -107,9 +169,9 @@ document.getElementById("studentForm").addEventListener("submit", async (e) => {
   submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Submitting...';
 
   const body = {
-    studentResponse: studentResponse.value.trim(),
+    studentResponse: urlValue,
     studentResponseType: student_response_type.toUpperCase(),
-    comment: commentField.value.trim(),
+    comment: commentValue,
   };
 
   try {
@@ -119,6 +181,10 @@ document.getElementById("studentForm").addEventListener("submit", async (e) => {
     resultBox.className = "result-message success";
     studentResponse.value = "";
     commentField.value = "";
+    
+    // Reset character counters
+    urlCharCount.textContent = `0/${URL_MAX_LENGTH}`;
+    commentCharCount.textContent = `0/${COMMENT_MAX_LENGTH}`;
   } catch (err) {
     resultText.textContent = "❌ Error: " + err.message;
     resultBox.className = "result-message error";
