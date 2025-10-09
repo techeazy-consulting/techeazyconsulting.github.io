@@ -1,6 +1,6 @@
 // Navigation functionality - removed showPage function as it's not needed for multi-page navigation
 
-import { WEBSITE_CONSTANTS , DOMAIN } from "./js/config.js";
+import { WEBSITE_CONSTANTS, DOMAIN } from "./js/config.js";
 
 function initNavHandlers() {
   const toggle = document.querySelector(".mobile-menu-toggle");
@@ -18,7 +18,7 @@ function initNavHandlers() {
       // Exact match for root, startsWith for section pages
       const isActive = (href === '/' && path === '/') || (href !== '/' && path.startsWith(href));
       a.classList.toggle('active', !!isActive);
-    } catch (_) {}
+    } catch (_) { }
   });
 
   // Remove existing event listeners to prevent duplicates
@@ -215,7 +215,7 @@ function loadPopup() {
           mobile: form.mobile.value.trim(),
           interestType: form.interestType.value,
           courseType: form.courseType.value,
-          applySource: applySource  
+          applySource: applySource
         };
 
         // Basic client validation
@@ -237,9 +237,21 @@ function loadPopup() {
           });
 
           if (res.ok) {
-            status.textContent = "Form submitted successfully!";
+            status.innerHTML = `<span style="
+                                          color: green;
+                                          font-weight: 600;
+                                          font-size: 1rem;
+                                          display: inline-block;
+                                          margin-top: 8px;
+                                        ">Thank you for your submission! We’ll get back to you soon.</span>`;
             status.style.color = "green";
             form.reset();
+
+            // Hide description boxes after successful submission
+            document.getElementById("desc1").className = "description-box";
+            document.getElementById("desc2").className = "description-box";
+            document.getElementById("desc3").className = "description-box";
+
           } else {
             status.textContent = "Submission failed. Try again.";
             status.style.color = "red";
@@ -270,7 +282,7 @@ function showPopup() {
 function checkAndShowPopupFromURL() {
   const urlParams = new URLSearchParams(window.location.search);
   const srcParam = urlParams.get('src');
-  
+
   if (srcParam) {
     // Show popup automatically if src parameter exists
     showPopup();
@@ -293,13 +305,13 @@ class BlogManager {
     this.hasNextPage = true;
     this.searchTerm = '';
     this.postsPerPage = 9;
-    
+
     // Hashnode API configuration from config.js
     this.API_URL = window.HASHNODE_CONFIG?.API_URL || 'https://api.hashnode.com';
     this.USERNAME = window.HASHNODE_CONFIG?.USERNAME || 'techeazy';
     this.HASHNODE_API_KEY = window.HASHNODE_CONFIG?.API_KEY || 'your-hashnode-api-key';
     this.postsPerPage = window.HASHNODE_CONFIG?.POSTS_PER_PAGE || 9;
-    
+
     console.log('BlogManager constructor called');
     console.log('API Config:', {
       API_URL: this.API_URL,
@@ -307,7 +319,7 @@ class BlogManager {
       API_KEY: this.HASHNODE_API_KEY ? '***configured***' : 'not configured',
       POSTS_PER_PAGE: this.postsPerPage
     });
-    
+
     this.init();
   }
 
@@ -424,7 +436,7 @@ class BlogManager {
   loadFallbackBlogs() {
     // Show API notice
     this.showApiNotice(true);
-    
+
     // Fallback blogs when API is not configured
     const fallbackBlogs = [
       {
@@ -486,7 +498,7 @@ class BlogManager {
     if (!container) return;
 
     const blogsToShow = this.filteredBlogs;
-    
+
     if (blogsToShow.length === 0 && !this.loading) {
       container.innerHTML = `
         <div style="text-align: center; padding: 2rem; color: #666;">
@@ -503,11 +515,11 @@ class BlogManager {
       <article class="blog-post">
         <h2>${blog.title}</h2>
         <div class="blog-meta">
-          ${blog.publishedAt ? `Published on ${new Date(blog.publishedAt).toLocaleDateString('en-US', { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-          })}` : 'Recently Published'} | Technical Guide
+          ${blog.publishedAt ? `Published on ${new Date(blog.publishedAt).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })}` : 'Recently Published'} | Technical Guide
         </div>
         <p>
           ${blog.brief || 'Read more about this topic...'}
@@ -519,7 +531,7 @@ class BlogManager {
         >Read More →</a>
       </article>
     `).join('');
-    
+
     // Update explore more button after rendering
     this.updateExploreMoreButton();
   }
@@ -576,6 +588,6 @@ function loadMoreBlogs() {
 }
 
 // Initialize blog manager when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   window.blogManager = new BlogManager();
 });
