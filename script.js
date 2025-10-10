@@ -2,6 +2,15 @@
 
 import { WEBSITE_CONSTANTS, DOMAIN } from "./js/config.js";
 
+
+function resetPopupForm() {
+  const form = document.getElementById("interest-form");
+  const status = document.getElementById("form-status");
+  if (form) form.reset();
+  if (status) status.textContent = "";
+}
+
+
 function initNavHandlers() {
   const toggle = document.querySelector(".mobile-menu-toggle");
   if (toggle) {
@@ -184,115 +193,222 @@ document.querySelectorAll(".cta-button, .card").forEach((element) => {
   });
 });
 
-// Popup form
-// Form submission logic for studentName, email, mobile, interestType, courseType
-function loadPopup() {
-  fetch("popup.html")
-    .then(res => res.text())
+
+// Popup form with proper state management
+let currentPopupType = null;
+let popupLoading = false;
+
+// Remove any existing popup from DOM
+function removeExistingPopup() {
+  const existingPopup = document.getElementById("global-popup");
+  if (existingPopup) {
+    existingPopup.remove();
+  }
+  currentPopupType = null;
+}
+
+// Setup form submission handler
+function setupFormSubmission(form, status) {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Get the source parameter from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const applySource = urlParams.get('src') || WEBSITE_CONSTANTS.EXPRESS_INTEREST_SOURCE;
+
+    const data = {
+      studentName: form.studentName.value.trim(),
+      email: form.email.value.trim(),
+      mobile: form.mobile.value.trim(),
+      interestType: form.interestType.value,
+      courseType: form.courseType.value,
+      applySource: applySource
+    };
+
+    // Basic client validation
+    if (!data.studentName || !data.email || !data.mobile || !data.interestType || !data.courseType) {
+      status.textContent = "Please fill all required fields.";
+      status.style.color = "red";
+      return;
+    }
+
+    const submitBtn = document.getElementById("popup-submit-btn");
+    submitBtn.disabled = true;
+    status.textContent = "Submitting...";
+    status.style.color = "gray";
+
+    try {
+      const res = await fetch(`${DOMAIN}/public/dms/api/expressInterest`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      const responseData = await res.json().catch(() => null);
+
+      if (res.ok) {
+        status.innerHTML = `<span style="
+                                      color: green;
+                                      font-weight: 600;
+                                      font-size: 1rem;
+                                      display: inline-block;
+                                      margin-top: 8px;
+                                      ">
+                                      Thanks for your submission!<br>
+                                      Next set of instructions will be sent to your Email ID.
+                                      </span>`;
+        form.reset();
+
+      } else {
+        const errorMsg = responseData?.message || "Submission failed. Please try again.";
+        status.textContent = errorMsg;
+        status.style.color = "red";
+        submitBtn.disabled = false;
+      }
+    } catch (err) {
+      console.error("Submission error:", err);
+      status.textContent = "Network error. Please check your connection and try again.";
+      status.style.color = "red";
+      submitBtn.disabled = false;
+    }
+  });
+}
+
+// Load and show paid popup
+function loadPaidPopup() {
+  if (popupLoading) return;
+
+  popupLoading = true;
+  removeExistingPopup();
+
+  fetch("popup-paid.html")
+    .then(res => {
+      if (!res.ok) throw new Error("Failed to load popup");
+      return res.text();
+    })
     .then(html => {
       document.body.insertAdjacentHTML("beforeend", html);
+      currentPopupType = "paid";
 
       const popup = document.getElementById("global-popup");
-      const closeBtn = document.querySelector(".popup-close");
-
-      // Close popup
-      closeBtn.addEventListener("click", () => popup.style.display = "none");
-      popup.addEventListener("click", (e) => { if (e.target === popup) popup.style.display = "none"; });
-
+      const closeBtn = popup.querySelector(".popup-close");
       const form = document.getElementById("interest-form");
       const status = document.getElementById("form-status");
 
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+      closeBtn.addEventListener("click", () => {
+        popup.style.display = "none";
+        document.body.style.overflow = "auto";
+        resetPopupForm();
+      });
 
-        // Get the source parameter from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const applySource = urlParams.get('src') || WEBSITE_CONSTANTS.EXPRESS_INTEREST_SOURCE;
-
-        const data = {
-          studentName: form.studentName.value.trim(),
-          email: form.email.value.trim(),
-          mobile: form.mobile.value.trim(),
-          interestType: form.interestType.value,
-          courseType: form.courseType.value,
-          applySource: applySource
-        };
-
-        // Basic client validation
-        if (!data.studentName || !data.email || !data.mobile || !data.interestType || !data.courseType) {
-          status.textContent = "Please fill all required fields.";
-          status.style.color = "red";
-          return;
-        }
-
-        status.textContent = "Submitting...";
-        status.style.color = "gray";
-
-        try {
-          // Replace URL with your backend endpoint
-          const res = await fetch(`${DOMAIN}/public/dms/api/expressInterest`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-          });
-
-          if (res.ok) {
-            status.innerHTML = `<span style="
-                                          color: green;
-                                          font-weight: 600;
-                                          font-size: 1rem;
-                                          display: inline-block;
-                                          margin-top: 8px;
-                                        ">Thank you for your submission! We’ll get back to you soon.</span>`;
-            status.style.color = "green";
-            form.reset();
-
-            // Hide description boxes after successful submission
-            document.getElementById("desc1").className = "description-box";
-            document.getElementById("desc2").className = "description-box";
-            document.getElementById("desc3").className = "description-box";
-
-          } else {
-            status.textContent = "Submission failed. Try again.";
-            status.style.color = "red";
-          }
-        } catch (err) {
-          status.textContent = "Network error.";
-          status.style.color = "red";
+      popup.addEventListener("click", (e) => {
+        if (e.target === popup) {
+          popup.style.display = "none";
+          document.body.style.overflow = "auto";
+          resetPopupForm();
         }
       });
+
+      // Setup form
+      setupFormSubmission(form, status);
+
+      // Show popup
+      popup.style.display = "flex";
+      document.body.style.overflow = "hidden";
+      popupLoading = false;
+    })
+    .catch(err => {
+      console.error("Error loading paid popup:", err);
+      alert("Failed to load registration form. Please refresh and try again.");
+      popupLoading = false;
     });
 }
 
-// Show popup globally
-function showPopup() {
-  const popup = document.getElementById("global-popup");
-  if (popup) {
-    popup.style.display = "flex";
+// Load and show unpaid popup
+function loadUnpaidPopup() {
+  if (popupLoading) return;
+
+  popupLoading = true;
+  removeExistingPopup();
+
+  fetch("popup-unpaid.html")
+    .then(res => {
+      if (!res.ok) throw new Error("Failed to load popup");
+      return res.text();
+    })
+    .then(html => {
+      document.body.insertAdjacentHTML("beforeend", html);
+      currentPopupType = "unpaid";
+
+      const popup = document.getElementById("global-popup");
+      const closeBtn = popup.querySelector(".popup-close");
+      const form = document.getElementById("interest-form");
+      const status = document.getElementById("form-status");
+
+      closeBtn.addEventListener("click", () => {
+        popup.style.display = "none";
+        document.body.style.overflow = "auto";
+        resetPopupForm();
+      });
+
+      popup.addEventListener("click", (e) => {
+        if (e.target === popup) {
+          popup.style.display = "none";
+          document.body.style.overflow = "auto";
+          resetPopupForm();
+        }
+      });
+
+
+      // Setup form
+      setupFormSubmission(form, status);
+
+      // Show popup
+      popup.style.display = "flex";
+      document.body.style.overflow = "hidden";
+      popupLoading = false;
+    })
+    .catch(err => {
+      console.error("Error loading unpaid popup:", err);
+      alert("Failed to load registration form. Please refresh and try again.");
+      popupLoading = false;
+    });
+}
+
+// Public functions
+function showPaidPopup() {
+  if (popupLoading) return;
+
+  const existingPopup = document.getElementById("global-popup");
+
+  if (existingPopup && currentPopupType === "paid") {
+    // Already loaded, just show it
+    existingPopup.style.display = "flex";
+    document.body.style.overflow = "hidden";
   } else {
-    loadPopup();
-    setTimeout(() => {
-      const popupLoaded = document.getElementById("global-popup");
-      if (popupLoaded) popupLoaded.style.display = "flex";
-    }, 200);
+    // Load fresh
+    loadPaidPopup();
   }
 }
 
-// Check if URL contains 'src' parameter and auto-show popup
-function checkAndShowPopupFromURL() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const srcParam = urlParams.get('src');
+function showUnpaidPopup() {
+  if (popupLoading) return;
 
-  if (srcParam) {
-    // Show popup automatically if src parameter exists
-    showPopup();
+  const existingPopup = document.getElementById("global-popup");
+
+  if (existingPopup && currentPopupType === "unpaid") {
+    // Already loaded, just show it
+    existingPopup.style.display = "flex";
+    document.body.style.overflow = "hidden";
+  } else {
+    // Load fresh
+    loadUnpaidPopup();
   }
 }
 
-window.showPopup = showPopup;
-
-// Auto-show popup on page load if src parameter exists
-window.addEventListener('DOMContentLoaded', checkAndShowPopupFromURL);
+// Expose to global scope
+window.showPaidPopup = showPaidPopup;
+window.showUnpaidPopup = showUnpaidPopup;
 
 
 // Blog fetching functionality

@@ -368,6 +368,21 @@ body {
   margin: 1rem 0;
 }
 
+
+.card .price_tag_line {
+  color: #ff6b35;
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 1rem 0;
+}
+
+.card .price_tag_line_green {
+  color: #067e06;
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 1rem 0;
+}
+
 .card .original-price {
   text-decoration: line-through;
   color: #666;

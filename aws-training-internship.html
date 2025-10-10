@@ -39,6 +39,47 @@
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="style.css" />
+    <style>
+      .btn-green {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+        width: 100%;
+      }
+      
+      .btn-green:hover {
+        background-color: #218838;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+      }
+      
+      .btn-blue {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+        width: 100%;
+      }
+      
+      .btn-blue:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+      }
+    </style>
   </head>
 
   <body>
@@ -54,71 +95,56 @@
             <h1>
               Ready to crack your AWS CloudOps interviews and internships?
             </h1>
-            <!-- <a
-              class="btn btn-white"
-              href="https://forms.gle/cmutatAAB9kML5iS9"
-              target="_blank"
-              rel="noopener"
-              >Apply for Internship</a
-            > -->
-            <button class="btn btn-white" onclick="showPopup()">
-              Express Interest
-            </button>
           </div>
 
           <div class="cards-grid">
             <div class="card">
               <h3>
-                <span style="color: green">✅ Ready :</span> Dedicated
-                Internship (1-2 months)
+                 Dedicated Internship (1-2 months)
               </h3>
-              <div class="price">FREE</div>
+              <div class="price">Unpaid and Free</div>
+              <p class="price_tag_line">
+                Requires interview-based selection
+              </p>
               <p>
-                Hands-on internship experience with real-world projects and
-                mentorship.
+                Hands-on internship for standout learners ready to prove their skills.
               </p>
               <ul style="margin: 1rem 0; padding-left: 1.5rem">
-                <li>1–2 months of internship</li>
-                <li>Guided mentorship during project</li>
-                <li>Internship completion certificate</li>
-                <li>Portfolio readiness check</li>
-                <li>1 end-to-end real-world project to judge readiness</li>
+                <li>1–2 months of guided real-world project work</li>
+                <li>Less than 8 hours/week — flexible & remote</li>
+                <li>Weekly mentor interaction and feedback</li>
+                <li>Portfolio & readiness evaluation</li>
+                <li>Internship completion certificate on project success</li>
               </ul>
+              <button class="btn btn-green" onclick="showUnpaidPopup()">
+                Express Interest
+              </button>
             </div>
 
             <div class="card">
-              <!-- <h3><span style="color: red;">❌ Not Ready :</span> Training + FREE Internship Certificate</h3> -->
               <h3>
-                Training + Internship — Guaranteed Certificate + Placement
-                Support
+                Training + Internship (1-6 months)
               </h3>
               <div class="price">₹2,600/month</div>
+              <p class="price_tag_line_green">
+                No selection hurdle — open for all learners
+              </p>
               <p>
-                (Ask us about special 3-month & 6-month bundle offers with added
-                placement support)
+                Structured, guided learning for professionals & beginners.
               </p>
               <ul style="margin: 1rem 0; padding-left: 1.5rem">
                 <li>
-                  Guaranteed Internship + Training certificate (no selection
-                  hurdle)
+                  Learn through hands-on, industry-focused projects (Cloud, AWS, DevOps)
                 </li>
+                <li>Resume, interview & career transition guidance</li>
+                <li>Flexible, remote learning at your own pace</li>
                 <li>
-                  Placement support → interview readiness, resume building, mock
-                  interviews, referral guidance
+                  Money-back guarantee after 2 weeks
                 </li>
-                <li>
-                  Multiple guided projects (Cloud, AWS, DevOps,
-                  industry-focused)
-                </li>
-                <li>Weekly mentor-led doubt clearance sessions</li>
-                <li>Personal hand-holding & guidance throughout</li>
-                <li>
-                  PR reviews & Agile teamwork practice (work like real dev
-                  teams)
-                </li>
-                <li>Freelancing & career readiness track included</li>
-                <li>Money-back guarantee after 2 weeks</li>
               </ul>
+              <button class="btn btn-blue" onclick="showPaidPopup()">
+                Express Interest
+              </button>
             </div>
           </div>
 
@@ -318,15 +344,6 @@
         // Set a cookie to remember that user has seen the popup
         localStorage.setItem("socialPopupSeen", "true");
       }
-
-      // // Show popup after 1 second if not seen before
-      // window.addEventListener("load", function () {
-      //   setTimeout(function () {
-      //     if (!localStorage.getItem("socialPopupSeen")) {
-      //       showSocialPopup();
-      //     }
-      //   }, 1000);
-      // });
 
       // Close popup when clicking outside
       document
