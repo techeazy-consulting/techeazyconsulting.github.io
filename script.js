@@ -3,12 +3,12 @@
 import { WEBSITE_CONSTANTS, DOMAIN } from "./js/config.js";
 
 
-function resetPopupForm() {
-  const form = document.getElementById("interest-form");
-  const status = document.getElementById("form-status");
-  if (form) form.reset();
-  if (status) status.textContent = "";
-}
+// function resetPopupForm() {
+//   const form = document.getElementById("interest-form");
+//   const status = document.getElementById("form-status");
+//   if (form) form.reset();
+//   if (status) status.textContent = "";
+// }
 
 
 function initNavHandlers() {
@@ -193,7 +193,6 @@ document.querySelectorAll(".cta-button, .card").forEach((element) => {
   });
 });
 
-
 // Popup form with proper state management
 let currentPopupType = null;
 let popupLoading = false;
@@ -205,6 +204,55 @@ function removeExistingPopup() {
     existingPopup.remove();
   }
   currentPopupType = null;
+}
+
+// Reset popup form to initial state
+function resetPopupForm() {
+  const popup = document.getElementById("global-popup");
+  if (!popup) return;
+  
+  const form = document.getElementById("interest-form");
+  const successContainer = document.getElementById("success-container");
+  const formContainer = document.getElementById("form-container");
+  
+  if (form) form.reset();
+  if (successContainer) successContainer.style.display = "none";
+  if (formContainer) formContainer.style.display = "block";
+}
+
+// Show success message by hiding form and displaying success state
+function showSuccessMessage(isAlreadySubmitted = false) {
+  const formContainer = document.getElementById("form-container");
+  const successContainer = document.getElementById("success-container");
+  const successTitle = document.getElementById("success-title");
+  const successMessage = document.getElementById("success-message");
+  const successIcon = document.getElementById("success-icon");
+  
+  if (!formContainer || !successContainer) return;
+  
+  // Hide form, show success
+  formContainer.style.display = "none";
+  successContainer.style.display = "flex";
+  
+  if (isAlreadySubmitted) {
+    // Already submitted state
+    successIcon.innerHTML = "⚠️";
+    successTitle.textContent = "Already Registered";
+    successMessage.innerHTML = `
+      It looks like you've already submitted your interest.<br><br>
+      <strong>What's next?</strong><br>
+      You will receive the next set of instructions on your registered email shortly.
+    `;
+  } else {
+    // Success state
+    successIcon.innerHTML = "✓";
+    successTitle.textContent = "Registration Successful!";
+    successMessage.innerHTML = `
+      Thanks for your submission!<br><br>
+      <strong>What's next?</strong><br>
+      You will receive the next set of instructions on your Email soon.
+    `;
+  }
 }
 
 // Setup form submission handler
@@ -228,14 +276,14 @@ function setupFormSubmission(form, status) {
     // Basic client validation
     if (!data.studentName || !data.email || !data.mobile || !data.interestType || !data.courseType) {
       status.textContent = "Please fill all required fields.";
-      status.style.color = "red";
+      status.style.color = "#dc3545";
       return;
     }
 
     const submitBtn = document.getElementById("popup-submit-btn");
     submitBtn.disabled = true;
-    status.textContent = "Submitting...";
-    status.style.color = "gray";
+    submitBtn.textContent = "Submitting...";
+    status.textContent = "";
 
     try {
       const res = await fetch(`${DOMAIN}/public/dms/api/expressInterest`, {
@@ -247,29 +295,27 @@ function setupFormSubmission(form, status) {
       const responseData = await res.json().catch(() => null);
 
       if (res.ok) {
-        status.innerHTML = `<span style="
-                                      color: green;
-                                      font-weight: 600;
-                                      font-size: 1rem;
-                                      display: inline-block;
-                                      margin-top: 8px;
-                                      ">
-                                      Thanks for your submission!<br>
-                                      Next set of instructions will be sent to your Email ID.
-                                      </span>`;
-        form.reset();
-
+        // Show success message (replaces form)
+        showSuccessMessage(false);
+        submitBtn.textContent = "Express Interest";
+      } else if (res.status === 400) {
+        // Already submitted - show appropriate message
+        showSuccessMessage(true);
+        submitBtn.textContent = "Express Interest";
       } else {
+        // Other errors - show inline
         const errorMsg = responseData?.message || "Submission failed. Please try again.";
         status.textContent = errorMsg;
-        status.style.color = "red";
+        status.style.color = "#dc3545";
         submitBtn.disabled = false;
+        submitBtn.textContent = "Express Interest";
       }
     } catch (err) {
       console.error("Submission error:", err);
       status.textContent = "Network error. Please check your connection and try again.";
-      status.style.color = "red";
+      status.style.color = "#dc3545";
       submitBtn.disabled = false;
+      submitBtn.textContent = "Express Interest";
     }
   });
 }
@@ -359,7 +405,6 @@ function loadUnpaidPopup() {
         }
       });
 
-
       // Setup form
       setupFormSubmission(form, status);
 
@@ -382,11 +427,9 @@ function showPaidPopup() {
   const existingPopup = document.getElementById("global-popup");
 
   if (existingPopup && currentPopupType === "paid") {
-    // Already loaded, just show it
     existingPopup.style.display = "flex";
     document.body.style.overflow = "hidden";
   } else {
-    // Load fresh
     loadPaidPopup();
   }
 }
@@ -397,19 +440,27 @@ function showUnpaidPopup() {
   const existingPopup = document.getElementById("global-popup");
 
   if (existingPopup && currentPopupType === "unpaid") {
-    // Already loaded, just show it
     existingPopup.style.display = "flex";
     document.body.style.overflow = "hidden";
   } else {
-    // Load fresh
     loadUnpaidPopup();
   }
+}
+
+// Close popup and reset
+function closePopup() {
+  const popup = document.getElementById("global-popup");
+  if (!popup) return;
+  
+  popup.style.display = "none";
+  document.body.style.overflow = "auto";
+  resetPopupForm();
 }
 
 // Expose to global scope
 window.showPaidPopup = showPaidPopup;
 window.showUnpaidPopup = showUnpaidPopup;
-
+window.closePopup = closePopup;
 
 // Blog fetching functionality
 class BlogManager {

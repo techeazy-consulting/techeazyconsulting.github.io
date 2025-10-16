@@ -1,257 +1,381 @@
 <style>
   /* Scope all styles to only affect #global-popup */
-  #global-popup {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-  }
+#global-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
 
+#global-popup .popup-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 480px;
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  text-align: left;
+  position: relative;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.25);
+  animation: popupFadeIn 0.3s ease-in-out;
+}
+
+#global-popup .popup-content::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+#global-popup .popup-content {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#global-popup .popup-close {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  z-index: 10;
+  background: white;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  line-height: 1;
+}
+
+#global-popup .popup-close:hover {
+  background: #f0f0f0;
+}
+
+#global-popup h2 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+#global-popup hr {
+  margin-bottom: 1.5rem;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+#global-popup .form-group {
+  margin-bottom: 1.2rem;
+}
+
+#global-popup .form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+}
+
+#global-popup .form-group input,
+#global-popup .form-group select {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+#global-popup .form-group select {
+  cursor: pointer;
+  background-color: white;
+}
+
+#global-popup .form-group select option {
+  padding: 0.5rem;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+#global-popup .form-group input:focus,
+#global-popup .form-group select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+#global-popup .info-text {
+  font-size: 12px;
+  color: #ff8c00;
+  margin-left: 5px;
+  margin-top: 0.3rem;
+  margin-bottom: 0;
+}
+
+#global-popup .message-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #007bff;
+  color: #333;
+}
+
+#global-popup .radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+#global-popup .radio-option {
+  display: flex;
+  align-items: flex-start;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#global-popup .radio-option:hover {
+  background-color: #f8f9fa;
+  border-color: #007bff;
+}
+
+#global-popup .radio-option input[type="radio"] {
+  width: auto;
+  margin-right: 0.8rem;
+  margin-top: 0.2rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+#global-popup .radio-option label {
+  cursor: pointer;
+  margin: 0;
+  font-weight: 500;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+#global-popup .radio-option input[type="radio"]:checked + label {
+  color: #007bff;
+}
+
+#global-popup .description-box {
+  margin-top: 0.8rem;
+  padding: 0.8rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  font-weight: 500;
+  display: none;
+}
+
+#global-popup .desc-blue {
+  display: block;
+  color: #007bff;
+  background-color: #e7f3ff;
+  border: 1px solid #007bff;
+}
+
+#global-popup .desc-green {
+  display: block;
+  color: #28a745;
+  background-color: #e8f5e9;
+  border: 1px solid #28a745;
+}
+
+#global-popup .desc-orange {
+  display: block;
+  color: #ff8c00;
+  background-color: #fff3e0;
+  border: 1px solid #ff8c00;
+}
+
+#global-popup #popup-submit-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+#global-popup #popup-submit-btn:hover {
+  background: #0056b3;
+}
+
+#global-popup #popup-submit-btn:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+}
+
+#global-popup #form-status {
+ /* margin-bottom: 1rem; */
+  font-size: 0.9rem;
+  text-align: center;
+  /* padding: 0.75rem; */
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+/* Success Container Styles */
+#global-popup #success-container {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1rem;
+  animation: successFadeIn 0.4s ease-in-out;
+}
+
+#global-popup .success-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  font-size: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+  animation: iconBounce 0.6s ease-in-out;
+}
+
+#global-popup .success-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #28a745;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+#global-popup .success-message {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #495057;
+  margin-bottom: 2rem;
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #28a745;
+}
+
+#global-popup .success-message strong {
+  color: #212529;
+  display: block;
+  margin-top: 0.5rem;
+}
+
+#global-popup .success-close-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75rem 2.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+}
+
+#global-popup .success-close-btn:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+/* Warning state for already submitted */
+#global-popup #success-container.warning .success-icon {
+  background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+}
+
+#global-popup #success-container.warning .success-title {
+  color: #ff8c00;
+}
+
+#global-popup #success-container.warning .success-message {
+  border-left-color: #ff8c00;
+}
+
+/* Animations */
+@keyframes popupFadeIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes successFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes iconBounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 576px) {
   #global-popup .popup-content {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 12px;
-    width: 480px;
-    max-width: 90%;
-    max-height: 90vh;
-    overflow-y: auto;
-    text-align: left;
-    position: relative;
-    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.25);
-    animation: popupFadeIn 0.3s ease-in-out;
-  }
-
-  #global-popup .popup-content::-webkit-scrollbar {
-    width: 0;
-    background: transparent;
-  }
-
-  #global-popup .popup-content {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  #global-popup .popup-close {
-    position: absolute;
-    top: 12px;
-    right: 18px;
-    font-size: 24px;
-    cursor: pointer;
-    color: #666;
-    z-index: 10;
-    background: white;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    border: none;
-    line-height: 1;
-  }
-
-  #global-popup .popup-close:hover {
-    background: #f0f0f0;
+    width: 95%;
+    padding: 1.5rem;
+    max-height: 95vh;
   }
 
   #global-popup h2 {
-    text-align: center;
-    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
   }
 
-  #global-popup hr {
-    margin-bottom: 1.5rem;
-    border: none;
-    border-top: 1px solid #ddd;
+  #global-popup .success-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 40px;
   }
 
-  #global-popup .form-group {
-    margin-bottom: 1.2rem;
+  #global-popup .success-title {
+    font-size: 1.5rem;
   }
 
-  #global-popup .form-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 0.4rem;
+  #global-popup .success-message {
     font-size: 0.95rem;
+    padding: 1.25rem;
   }
+}
 
-  #global-popup .form-group input,
-  #global-popup .form-group select {
-    width: 100%;
-    padding: 0.6rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    outline: none;
-    transition: border-color 0.2s;
-    box-sizing: border-box;
-  }
-
-  #global-popup .form-group select {
-    cursor: pointer;
-    background-color: white;
-  }
-
-  #global-popup .form-group select option {
-    padding: 0.5rem;
-    white-space: normal;
-    word-wrap: break-word;
-  }
-
-  #global-popup .form-group input:focus,
-  #global-popup .form-group select:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-  }
-
-  #global-popup .info-text {
-    font-size: 12px;
-    color: #ff8c00;
-    margin-left: 5px;
-    margin-top: 0.3rem;
-    margin-bottom: 0;
-  }
-
-  #global-popup .message-text {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-    font-weight: 500;
-    background-color: #f8f9fa;
-    padding: 1rem;
-    border-radius: 8px;
-    border-left: 4px solid #007bff;
-    color: #333;
-  }
-
-  #global-popup .radio-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-
-  #global-popup .radio-option {
-    display: flex;
-    align-items: flex-start;
-    padding: 0.8rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  #global-popup .radio-option:hover {
-    background-color: #f8f9fa;
-    border-color: #007bff;
-  }
-
-  #global-popup .radio-option input[type="radio"] {
-    width: auto;
-    margin-right: 0.8rem;
-    margin-top: 0.2rem;
-    cursor: pointer;
-    flex-shrink: 0;
-  }
-
-  #global-popup .radio-option label {
-    cursor: pointer;
-    margin: 0;
-    font-weight: 500;
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-
-  #global-popup .radio-option input[type="radio"]:checked + label {
-    color: #007bff;
-  }
-
-  #global-popup .description-box {
-    margin-top: 0.8rem;
-    padding: 0.8rem;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    font-weight: 500;
-    display: none;
-  }
-
-  #global-popup .desc-blue {
-    display: block;
-    color: #007bff;
-    background-color: #e7f3ff;
-    border: 1px solid #007bff;
-  }
-
-  #global-popup .desc-green {
-    display: block;
-    color: #28a745;
-    background-color: #e8f5e9;
-    border: 1px solid #28a745;
-  }
-
-  #global-popup .desc-orange {
-    display: block;
-    color: #ff8c00;
-    background-color: #fff3e0;
-    border: 1px solid #ff8c00;
-  }
-
-  #global-popup #popup-submit-btn {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 0.75rem 1.2rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s;
-    width: 100%;
-    margin-top: 0.5rem;
-  }
-
-  #global-popup #popup-submit-btn:hover {
-    background: #0056b3;
-  }
-
-  #global-popup #popup-submit-btn:disabled {
-    background: #6c757d;
-    cursor: not-allowed;
-  }
-
-  #global-popup #form-status {
-    margin-top: 1rem;
-    font-size: 0.9rem;
-    text-align: center;
-  }
-
-  @keyframes popupFadeIn {
-    from {
-      transform: scale(0.9);
-      opacity: 0;
-    }
-
-    to {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-
-  @media (max-width: 576px) {
-    #global-popup .popup-content {
-      width: 95%;
-      padding: 1.5rem;
-      max-height: 95vh;
-    }
-
-    #global-popup h2 {
-      font-size: 1.5rem;
-    }
-  }
 </style>
 
 <div id="global-popup">
@@ -259,69 +383,85 @@
     <span class="popup-close" onclick="closePopup()">&times;</span>
     <h2>Register For Internship</h2>
     <hr>
-    <form id="interest-form">
 
-     <div id="form-status"></div>
+    <!-- Wrap form in form-container -->
+    <div id="form-container">
+      <form id="interest-form">
 
-      <!-- Email -->
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="email" required placeholder="Enter your email" />
-        <p class="info-text">All information will be sent to this email</p>
-      </div>
+        <div id="form-status"></div>
 
-      <!-- Student Name -->
-      <div class="form-group">
-        <label for="studentName">Full Name</label>
-        <input type="text" id="studentName" name="studentName" required placeholder="Enter your full name" />
-      </div>
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required placeholder="Enter your email" />
+          <p class="info-text">All information will be sent to this email</p>
+        </div>
 
-      <!-- Mobile -->
-      <div class="form-group">
-        <label for="mobile">Phone Number</label>
-        <input type="tel" id="mobile" name="mobile" pattern="^[0-9]{10}$" required
-          placeholder="Enter your phone number" />
-      </div>
+        <!-- Student Name -->
+        <div class="form-group">
+          <label for="studentName">Full Name</label>
+          <input type="text" id="studentName" name="studentName" required placeholder="Enter your full name" />
+        </div>
 
-      <!-- Course -->
-      <div class="form-group">
-        <label for="courseType">Select Interest</label>
-        <select id="courseType" name="courseType" required>
-          <option value="" disabled selected>Select Your Interest</option>
-          <option value="AWS_SOLUTIONS_ARCHITECT">AWS Solutions Architect</option>
-          <option value="AWS_DEVOPS">AWS DevOps</option>
-          <option value="AWS_DATA_ENGINEER">AWS Data Engineer</option>
-          <option value="AWS_SECURITY">AWS Security</option>
-          <option value="AWS_AI_ML">AWS AI/ML</option>
-          <option value="NOT_SURE">Not Sure</option>
-        </select>
-      </div>
+        <!-- Mobile -->
+        <div class="form-group">
+          <label for="mobile">Phone Number</label>
+          <input type="tel" id="mobile" name="mobile" pattern="^[0-9]{10}$" required
+            placeholder="Enter your phone number" />
+        </div>
 
-      <!-- Interest Type with Radio Buttons -->
-      <div class="form-group">
-        <p class="message-text">
-          You are expressing Interest for unpaid internship, we also offer guided training/internship options that candidates can pay and avail. Would you like to know more?
-        </p>
-        
-        <div class="radio-group">
-          <div class="radio-option">
-            <input type="radio" id="option1" name="interestType" value="FREE_INTERNSHIP" required>
-            <label for="option1">No, I am only looking for UNPAID and FREE programs</label>
-          </div>
-          
-          <div class="radio-option">
-            <input type="radio" id="option2" name="interestType" value="UNPAID_BUT_INTERESTED" required>
-            <label for="option2">Yes, I can consider paying fee for guided projects and interview preparation</label>
+        <!-- Course -->
+        <div class="form-group">
+          <label for="courseType">Select Interest</label>
+          <select id="courseType" name="courseType" required>
+            <option value="" disabled selected>Select Your Interest</option>
+            <option value="AWS_SOLUTIONS_ARCHITECT">AWS Solutions Architect</option>
+            <option value="AWS_DEVOPS">AWS DevOps</option>
+            <option value="AWS_DATA_ENGINEER">AWS Data Engineer</option>
+            <option value="AWS_SECURITY">AWS Security</option>
+            <option value="AWS_AI_ML">AWS AI/ML</option>
+            <option value="NOT_SURE">Not Sure</option>
+          </select>
+        </div>
+
+        <!-- Interest Type with Radio Buttons -->
+        <div class="form-group">
+          <p class="message-text">
+            You are expressing Interest for unpaid internship, we also offer guided training/internship options that
+            candidates can pay and avail. Would you like to know more?
+          </p>
+
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="option1" name="interestType" value="FREE_INTERNSHIP" required>
+              <label for="option1">No, I am only looking for UNPAID and FREE programs</label>
+            </div>
+
+            <div class="radio-option">
+              <input type="radio" id="option2" name="interestType" value="UNPAID_BUT_INTERESTED" required>
+              <label for="option2">Yes, I can consider paying fee for guided projects and interview preparation</label>
+            </div>
           </div>
         </div>
-      </div>
 
-      <button type="submit" id="popup-submit-btn">Express Interest</button>
-    </form>
+        <button type="submit" id="popup-submit-btn">Express Interest</button>
+      </form>
+    </div>
+
+    <!-- Success Container (hidden by default) -->
+    <div id="success-container" style="display: none;">
+      <div class="success-icon" id="success-icon">✓</div>
+      <h3 class="success-title" id="success-title">Registration Successful!</h3>
+      <p class="success-message" id="success-message">
+        Thank you for expressing your interest in the internship program.<br><br>
+        <strong>What's next?</strong><br>
+        We've sent detailed instructions to your email address.
+      </p>
+      <button type="button" class="success-close-btn" onclick="closePopup()">Close</button>
+    </div>
+
   </div>
 </div>
-
-
 
 <script>
   // Close popup and reset form
