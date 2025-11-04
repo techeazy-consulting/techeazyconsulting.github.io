@@ -1,361 +1,523 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AWS Internship Programs - TechEazy Consulting</title>
-    <meta
-      name="description"
-      content="AWS internship programs for students and freshers. Get hands-on experience with CloudOps, Data Engineering, and Solution Architecture internships."
-    />
-    <meta
-      name="keywords"
-      content="AWS internship, cloud internship, student internship, CloudOps internship, data engineering internship, solution architect internship"
-    />
-    <meta name="robots" content="index, follow" />
-    <meta name="author" content="TechEazy Consulting" />
 
-    <!-- Open Graph Meta Tags -->
-    <meta
-      property="og:title"
-      content="AWS Internship Programs - TechEazy Consulting"
-    />
-    <meta
-      property="og:description"
-      content="AWS internship programs for students and freshers with hands-on experience"
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://techeeazy.com/internship" />
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="https://res.cloudinary.com/dniqqtnps/image/upload/v1758097111/favicon_dewgwa.ico"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <style>
-      .btn-green {
-        background-color: #28a745;
-        color: white;
-        border: none;
-        padding: 12px 24px;
-        font-size: 16px;
-        font-weight: 600;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        margin-top: 20px;
+<head>
+  <meta charset="utf-8" />
+  <title>AWS Certification & Training | TechEazy Consulting</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+    content="Get AWS certified with hands-on projects, weekly tests, and career-switch support. Monthly free bootcamps. Build a cloud-ready portfolio or start freelancing." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="TechEazy Consulting" />
+  <meta property="og:title" content="AWS Certification & Training - TechEazy Consulting" />
+  <meta property="og:description"
+    content="Get AWS certified with hands-on projects, weekly tests, and career-switch support" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://techeeazy.com/training" />
+  <link rel="icon" type="image/x-icon"
+    href="https://res.cloudinary.com/dniqqtnps/image/upload/v1758097111/favicon_dewgwa.ico" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* Using your existing color scheme and fonts, but keeping new layout structure */
+    :root {
+      /* Your existing colors */
+      --brand: #3498db;
+      --brand-dark: #2c3e50;
+      --accent: #ff6b35;
+      --ink: #333;
+      --muted: #666;
+      --bg: #f8f9fa;
+      --soft: #f8f9fa;
+      --maxw: 1120px;
+      --radius: 10px;
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Reset specific to this page to avoid conflicts */
+    .training-page * {
+      box-sizing: border-box;
+    }
+
+    .training-page {
+      font-family: "Arial", sans-serif;
+      line-height: 1.6;
+      color: var(--ink);
+      background: var(--bg);
+    }
+
+    .training-page .container {
+      max-width: var(--maxw);
+      margin-inline: auto;
+      padding: 28px;
+    }
+
+    .training-page .hero {
+      padding: 64px 0;
+      background: linear-gradient(135deg, #2c3e50 0%, #3498db 50%, #ff6b35 100%);
+      color: white;
+    }
+
+    .training-page .hero h1 {
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.15;
+      margin: 0 0 12px;
+    }
+
+    .training-page .hero p {
+      font-size: clamp(16px, 2.2vw, 20px);
+      color: #fff;
+      max-width: 900px;
+      margin: 0 0 24px;
+      opacity: 0.95;
+    }
+
+    .training-page .cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .training-page .btn {
+      appearance: none;
+      border: 0;
+      border-radius: 10px;
+      padding: 14px 20px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: var(--shadow);
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .training-page .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .training-page .btn-primary:hover {
+      background: #e55a2a;
+      transform: translateY(-2px);
+    }
+
+    .training-page .section {
+      padding: 48px 0;
+    }
+
+    .training-page .section h2 {
+      font-size: 28px;
+      margin: 0 0 14px;
+      color: var(--brand-dark);
+    }
+
+    .training-page .section p.lead {
+      color: var(--muted);
+      margin: 0 0 24px;
+      font-size: 18px;
+    }
+
+    .training-page .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .training-page .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .training-page .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (max-width:900px) {
+
+      .training-page .grid-3,
+      .training-page .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .training-page .card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .training-page .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .training-page .card h3 {
+      margin: 6px 0 8px;
+      font-size: 20px;
+      color: var(--brand-dark);
+    }
+
+    .training-page .list {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .training-page .list li {
+      margin: 8px 0;
+      font-size: 16px;
+    }
+
+    .training-page .pill {
+      display: inline-block;
+      border: 1px solid #cbd5e1;
+      border-radius: 999px;
+      padding: 10px 16px;
+      margin: 6px 6px 0 0;
+      font-size: 15px;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .training-page .muted {
+      color: var(--muted);
+    }
+
+    .training-page .steps {
+      counter-reset: step;
+    }
+
+    .training-page .step {
+      display: flex;
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .training-page .step-num {
+      counter-increment: step;
+      min-width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--brand);
+      color: #fff;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .training-page .step-num::before {
+      content: counter(step);
+    }
+
+    .training-page .faq details {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      margin: 10px 0;
+    }
+
+    .training-page .faq summary {
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--brand-dark);
+    }
+
+    .training-page .mutebox {
+      background: var(--soft);
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+
+    .training-page .row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .training-page .kpis {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    @media (max-width:900px) {
+      .training-page .kpis {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .training-page .kpi {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius);
+      padding: 16px;
+      text-align: center;
+    }
+
+    .training-page .kpi .big {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--brand);
+    }
+
+    .training-page .highlight-section {
+      background: var(--soft);
+      padding: 48px 0;
+    }
+
+    /* Sticky CTA for mobile */
+    @media (max-width:768px) {
+      .training-page .sticky-cta {
+        position: sticky;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: transparent;
+        padding: 12px;
+        z-index: 100;
+      }
+
+      .training-page .sticky-cta .btn {
         width: 100%;
+        justify-content: center;
       }
-      
-      .btn-green:hover {
-        background-color: #218838;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
-      }
-      
-      .btn-blue {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 12px 24px;
-        font-size: 16px;
-        font-weight: 600;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        margin-top: 20px;
-        width: 100%;
-      }
-      
-      .btn-blue:hover {
-        background-color: #0056b3;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
-      }
-    </style>
-  </head>
+    }
+  </style>
+</head>
 
-  <body>
-    <!-- Header (included) -->
-    <div data-include="navbar.html"></div>
+<body>
 
-    <!-- Main Content -->
-    <main class="main-content">
-      <!-- Internship Page -->
-      <div class="page active" id="internship">
+  <!-- Header -->
+  <div data-include="navbar.html"></div>
+
+  <!-- Main Training Page Content -->
+  <main class="main-content">
+    <div class="page active training-page">
+
+      <!-- HERO -->
+      <header class="hero">
         <div class="container">
-          <div class="intern-banner">
-            <h1>
-              Ready to crack your AWS interviews and internships?
-            </h1>
-          </div>
+          <h1>Become AWS Certified. Build Real Cloud Projects. Get Hired or Start Freelancing.</h1>
+          <p>Skip mindless YouTube scrolling. Follow a structured path: weekly tests, hands-on projects, monthly free bootcamps, and career-switch support.</p>
 
-          <div class="cards-grid">
-            <div class="card">
-              <h3>
-                 Dedicated Internship (1-2 months)
-              </h3>
-              <div class="price">Unpaid and Free</div>
-              <p class="price_tag_line">
-                Requires interview-based selection
-              </p>
-              <p>
-                Hands-on internship for standout learners ready to prove their skills.
-              </p>
-              <ul style="margin: 1rem 0; padding-left: 1.5rem">
-                <li>1–2 months of guided real-world project work</li>
-                <li>Less than 8 hours/week — flexible & remote</li>
-                <li>Weekly mentor interaction and feedback</li>
-                <li>Portfolio & readiness evaluation</li>
-                <li>Internship completion certificate on project success</li>
-              </ul>
-              <button class="btn btn-green" onclick="showUnpaidPopup()">
+          <div class="cta-row sticky-cta">
+            <!-- Using popup-paid.html page -->
+             <button class="btn btn-primary" onclick="showPaidPopup()">
                 Express Interest
               </button>
-            </div>
+          </div>
+        </div>
+      </header>
 
+      <!-- WHO IT'S FOR -->
+      <section class="section">
+        <div class="container grid grid-3">
+          <div class="card">
+            <h3>Career Switchers</h3>
+            <p class="muted">Pivot into Cloud/DevOps/MLOps with structured guidance, weekly tests, and a ship-ready
+              project.</p>
+          </div>
+          <div class="card">
+            <h3>College Students</h3>
+            <p class="muted">Get certified <strong>before</strong> job search. Build a cloud-ready portfolio that sets
+              you apart.</p>
+          </div>
+          <div class="card">
+            <h3>Working Professionals</h3>
+            <p class="muted">Move your existing projects to AWS, showcase real impact, or start freelancing for extra
+              income.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHAT YOU'LL GET -->
+      <section class="section">
+        <div class="container">
+          <h2>What You'll Get</h2>
+          <p class="lead">Certification-aligned curriculum, hands-on projects, weekly tests, and a community rhythm that
+            keeps you consistent.</p>
+          <div class="grid grid-3">
             <div class="card">
-              <h3>
-                Training + Internship (1-6 months)
-              </h3>
-              <div class="price">₹2,600/month</div>
-              <p class="price_tag_line_green">
-                No selection hurdle — open for all learners
-              </p>
-              <p>
-                Structured, guided learning for professionals & beginners.
-              </p>
-              <ul style="margin: 1rem 0; padding-left: 1.5rem">
-                <li>
-                  Instructor-led sessions
-                </li>
-                <li>
-                  Learn through hands-on, industry-focused projects
-                </li>
-                <li>Resume, interview & career transition guidance</li>
-                <li>Flexible, remote learning at your own pace</li>
-                <li>
-                  Money-back guarantee after 2 weeks
-                </li>
-              </ul>
-              <button class="btn btn-blue" onclick="showPaidPopup()">
-                Express Interest
-              </button>
-            </div>
-          </div>
-
-          <section class="grid-2">
-            <div>
-              <h2>What You'll Do</h2>
-              <ul class="bullets">
-                <li>Build features in real projects</li>
-                <li>Write PRs, get code reviews, deploy to AWS</li>
-                <li>Weekly demos & feedback loops</li>
+              <h3>Certification Tracks</h3>
+              <ul class="list">
+                <li>AWS CloudOps</li>
+                <li>AWS Data Engineer</li>
+                <li>AWS Solution Architect</li>
               </ul>
             </div>
-            <div>
-              <h2>Who It's For</h2>
-              <ul class="bullets">
-                <li>College students needing internship experience</li>
-                <li>Freshers building a portfolio</li>
-                <li>Career switchers needing structured guidance</li>
+            <div class="card">
+              <h3>Regular Tests</h3>
+              <ul class="list">
+                <li>Weekly quizzes & mock exams</li>
+                <li>Exam strategy & readiness checks</li>
+                <li>Accountability to beat procrastination</li>
               </ul>
             </div>
-          </section>
-
-          <section
-            class="faq"
-            style="
-              display: flex;
-              justify-content: flex-start;
-              flex-direction: column;
-              max-width: 1100px;
-              margin-bottom: 20px;
-            "
-          >
-            <h2>FAQ</h2>
-            <details>
-              <summary>Is it paid?</summary>
-              <p>
-                No—these are unpaid internships designed to maximize learning
-                and portfolio value.
-              </p>
-            </details>
-            <details>
-              <summary>Can my college accept this as internship?</summary>
-              <p>
-                Yes—students often club this internship as part of their
-                mandatory training. We provide completion letters and project
-                summaries.
-              </p>
-            </details>
-            <details>
-              <summary>How many hours per week?</summary>
-              <p>
-                Expect 8–12 hours/week including sessions, self‑work, and demos.
-              </p>
-            </details>
-          </section>
-
-          <div class="course-details">
-            <h2>Available Internship Domains</h2>
-            <div class="course-modules">
-              <div class="module">
-                <h3>AWS CloudOps Internship</h3>
-                <p>
-                  Focus on infrastructure automation, deployment pipelines,
-                  cloud operations.
-                </p>
-                <br />
-                <p>
-                  <strong>Key Projects:</strong>
-                </p>
-                <ul class="bullets">
-                  <li>Infrastructure as Code</li>
-                  <li>CI/CD Pipeline Implementation</li>
-                  <li>Container Orchestration</li>
-                  <li>Monitoring & Alerting</li>
-                  <li>Security & Compliance</li>
-                </ul>
-              </div>
-
-              <div class="module">
-                <h3>Data Engineering Internship</h3>
-                <p>
-                  Build data pipelines, analytics solutions, and data lake
-                  architectures.
-                </p>
-                <br />
-                <p>
-                  <strong>Key Projects:</strong>
-                </p>
-                <ul class="bullets">
-                  <li>Data Lake Architecture</li>
-                  <li>Real-time Data Streaming</li>
-                  <li>Data Warehousing</li>
-                  <li>ETL Pipeline Development</li>
-                  <li>Data Visualization & Analytics</li>
-                </ul>
-              </div>
-
-              <div class="module">
-                <h3>Solution Architecture Internship</h3>
-                <p>
-                  Design scalable cloud solutions and optimize existing
-                  architectures.
-                </p>
-                <br />
-                <p>
-                  <strong>Key Projects:</strong>
-                </p>
-                <ul class="bullets">
-                  <li>Multi-tier Architecture Design</li>
-                  <li>Microservices & Serverless</li>
-                  <li>High Availability & Disaster Recovery</li>
-                  <li>Cost Optimization Strategies</li>
-                  <li>Security Architecture</li>
-                </ul>
-              </div>
+            <div class="card">
+              <h3>Project-First Learning</h3>
+              <ul class="list">
+                <li>Build new or migrate your existing app to AWS</li>
+                <li>IaC (Terraform/CloudFormation), CI/CD, containers</li>
+                <li>Security, monitoring, cost optimisation</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Career Switch Help</h3>
+              <ul class="list">
+                <li>Resume refresh for cloud roles</li>
+                <li>Mock interviews & scenario practice</li>
+                <li>LinkedIn & GitHub portfolio polish</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Freelancing & Earning</h3>
+              <ul class="list">
+                <li>How to find gigs & set pricing</li>
+                <li>Client onboarding & delivery templates</li>
+                <li>First 3 services to offer quickly</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Monthly Free Bootcamp</h3>
+              <p>Join a free 4-week crash-course to kickstart learning and keep momentum. Seats are limited.</p>
             </div>
           </div>
         </div>
-      </div>
-    </main>
+      </section>
 
-    <!-- Footer (included) -->
-    <div data-include="footer.html"></div>
-
-    <!-- Social Media Subscription Popup -->
-    <div id="socialMediaPopup" class="social-popup">
-      <div class="popup-content">
-        <div class="popup-header">
-          <h3>Stay Connected with TechEazy!</h3>
-          <button class="close-popup" onclick="closeSocialPopup()">
-            &times;
-          </button>
-        </div>
-        <div class="popup-body">
-          <p>
-            Follow us on our social media channels for the latest updates, tips,
-            and internship opportunities!
-          </p>
-          <div class="social-links">
-            <a
-              href="https://www.youtube.com/channel/UC8GIXGhJ8LNgwPg9_kYnpog"
-              target="_blank"
-              rel="noopener"
-              class="social-link youtube"
-            >
-              <i class="fab fa-youtube"></i>
-              <span>YouTube</span>
-            </a>
-            <a
-              href="https://www.linkedin.com/company/techeazyconsulting"
-              target="_blank"
-              rel="noopener"
-              class="social-link linkedin"
-            >
-              <i class="fab fa-linkedin"></i>
-              <span>LinkedIn</span>
-            </a>
-            <a
-              href="https://www.instagram.com/techeazy_consulting/"
-              target="_blank"
-              rel="noopener"
-              class="social-link instagram"
-            >
-              <i class="fab fa-instagram"></i>
-              <span>Instagram</span>
-            </a>
-            <a
-              href="https://whatsapp.com/channel/0029VbAXckqIyPtKz6GgLd3O"
-              target="_blank"
-              rel="noopener"
-              class="social-link whatsapp"
-            >
-              <i class="fab fa-whatsapp"></i>
-              <span>WhatsApp</span>
-            </a>
+      <!-- HIGHLIGHTS -->
+      <section class="highlight-section">
+        <div class="container">
+          <h2>Highlights</h2>
+          <div class="row">
+            <span class="pill">Certification-aligned modules</span>
+            <span class="pill">Weekly tests & mocks</span>
+            <span class="pill">Project migration to AWS</span>
+            <span class="pill">IaC • CI/CD • Security</span>
+            <span class="pill">Portfolio & Resume</span>
+            <span class="pill">Freelancing playbook</span>
+            <span class="pill">No mindless YouTube scrolling</span>
+            <span class="pill">Monthly free bootcamp</span>
           </div>
         </div>
-        <div class="popup-footer">
-          <button class="btn btn-primary" onclick="closeSocialPopup()">
-            Got it!
-          </button>
+      </section>
+
+      <!-- HOW IT WORKS -->
+      <section class="section">
+        <div class="container">
+          <h2>How It Works</h2>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num"></div>
+              <div><strong>Pick a Track.</strong> AWS CloudOps, AWS Data Engineer, or AWS Solution Architect — based on your current level & goals.
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num"></div>
+              <div><strong>Train Weekly.</strong> Instructor-led sessions + structured study plan.</div>
+            </div>
+            <div class="step">
+              <div class="step-num"></div>
+              <div><strong>Test Often.</strong> Weekly quizzes and mock exams to ensure readiness.</div>
+            </div>
+            <div class="step">
+              <div class="step-num"></div>
+              <div><strong>Build/Migrate a Project.</strong> Deploy to AWS with IaC, CI/CD, security, monitoring.</div>
+            </div>
+            <div class="step">
+              <div class="step-num"></div>
+              <div><strong>Portfolio & Resume.</strong> Polish GitHub, write a case study, craft your cloud resume.
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num"></div>
+              <div><strong>Exam Day.</strong> Book & pass your certification with confidence.</div>
+            </div>
+            <div class="step">
+              <div class="step-num"></div>
+              <div><strong>Job or Freelance.</strong> Apply with proof or pitch services to paying clients.</div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <!-- TRACKS -->
+      <section class="section" id="tracks">
+        <div class="container">
+          <h2></h2>
+          <div class="grid grid-3">
+            <div class="card">
+              <h3>AWS CloudOps</h3>
+              <ul class="list">
+                <li>6–8 weeks • Beginner</li>
+                <li>Weekly tests + mini-project</li>
+                <li>Exam strategy & readiness</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>AWS Data Engineer</h3>
+              <ul class="list">
+                <li>8–10 weeks • Core architecting</li>
+                <li>End-to-end AWS deployment</li>
+                <li>Security & cost optimisation</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>AWS Solution Architect</h3>
+              <ul class="list">
+                <li>10–12 weeks • Advanced</li>
+                <li>IaC • CI/CD • Containers</li>
+                <li>Observability & resilience</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section">
+        <div class="container">
+          <h2>FAQ</h2>
+          <div class="faq">
+            <details>
+              <summary>Do I need prior cloud experience?</summary>
+              <p>No — beginners are welcome. We start with fundamentals and guide you to your certification.</p>
+            </details>
+            <details>
+              <summary>Is this just recorded videos?</summary>
+              <p>No. There are live sessions, weekly assessments, and a hands-on project you'll deploy to AWS.</p>
+            </details>
+            <details>
+              <summary>Can I freelance after this?</summary>
+              <p>Yes. We cover how to package and sell your first cloud services, including pricing and delivery.</p>
+            </details>
+            <details>
+              <summary>How are the monthly bootcamps announced?</summary>
+              <p>We update the site and notify subscribers via email/WhatsApp. Seats are limited.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
     </div>
+  </main>
 
-    <script type="module" src="script.js"></script>
-    <script>
-      // Social Media Popup functionality
-      function showSocialPopup() {
-        document.getElementById("socialMediaPopup").style.display = "flex";
-        document.body.style.overflow = "hidden";
-      }
+  <!-- Footer -->
+  <div data-include="footer.html"></div>
 
-      function closeSocialPopup() {
-        document.getElementById("socialMediaPopup").style.display = "none";
-        document.body.style.overflow = "auto";
-        // Set a cookie to remember that user has seen the popup
-        localStorage.setItem("socialPopupSeen", "true");
-      }
+  <script type="module" src="script.js"></script>
 
-      // Close popup when clicking outside
-      document
-        .getElementById("socialMediaPopup")
-        .addEventListener("click", function (e) {
-          if (e.target === this) {
-            closeSocialPopup();
-          }
-        });
-    </script>
-  </body>
+</body>
+
 </html>
